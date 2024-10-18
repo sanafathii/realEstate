@@ -62,7 +62,7 @@ function AddProfilePage({ data }) {
     if (data) {
       setProfileDate(data);
     }
-  }, []);
+  }, [data]);
   return (
     <div className={styles.container}>
       <h3>{data ? "ویرایش آگهی" : "ثبت آگهی"}</h3>
