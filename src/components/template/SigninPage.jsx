@@ -1,11 +1,9 @@
 "use client";
-
 import React, { useState } from "react";
 import styles from "./SignupPage.module.css";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { ThreeDots } from "react-loader-spinner";
 import { signIn } from "next-auth/react";
 
 function SigninPage() {
@@ -52,17 +50,7 @@ function SigninPage() {
           required
         />
 
-        {loading ? (
-          <ThreeDots
-            color="#304ffe"
-            height={45}
-            ariaLabel="three-dots-loading"
-            visible={true}
-            wrapperStyle={{ margin: "auto" }}
-          />
-        ) : (
-          <button type="submit">ورود</button>
-        )}
+        {loading ? <Loader /> : <button type="submit">ورود</button>}
       </form>
       <p>
         حساب کاربری ندارید؟ <Link href="/signup">ثبت نام</Link>

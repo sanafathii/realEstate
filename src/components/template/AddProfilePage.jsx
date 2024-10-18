@@ -1,11 +1,12 @@
 "use client";
-
 import React, { useState } from "react";
 import styles from "./AddProfilePage.module.css";
 import TextInput from "../module/TextInput";
 import RadioList from "../module/RadioList";
 import TextList from "../module/TextList";
 import CusomeDatePicker from "../module/CusomeDatePicker";
+import toast, { Toaster } from "react-hot-toast";
+import Loader from "../module/Loader";
 
 function AddProfilePage() {
   const [profileDate, setProfileDate] = useState({
@@ -20,9 +21,33 @@ function AddProfilePage() {
     rules: [],
     amenities: [],
   });
-
-  const submitHandler = () => {
-    console.log(profileDate);
+  const [loading, setLoading] = useState(false);
+  const submitHandler = async () => {
+    setLoading(true);
+    const res = await fetch("/api/profile", {
+      method: "POST",
+      body: JSON.stringify(profileDate),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    setLoading(false);
+    if (data.error) {
+      toast.error(data.error);
+    } else {
+      setProfileDate({
+        title: "",
+        description: "",
+        location: "",
+        phoneNumber: "",
+        price: "",
+        realState: "",
+        constractionDate: new Date(),
+        gategorie: "",
+        rules: [],
+        amenities: [],
+      });
+      toast.success(data.message);
+    }
   };
   return (
     <div className={styles.container}>
@@ -81,9 +106,14 @@ function AddProfilePage() {
         profileDate={profileDate}
         setProfileDate={setProfileDate}
       />
-      <button className={styles.submit} onClick={submitHandler}>
-        ثبت آگهی
-      </button>
+      <Toaster />
+      {loading ? (
+        <Loader />
+      ) : (
+        <button className={styles.submit} onClick={submitHandler}>
+          ثبت آگهی
+        </button>
+      )}
     </div>
   );
 }
