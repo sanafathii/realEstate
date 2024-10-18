@@ -1,4 +1,5 @@
-import DashboardSidebar from "@/components/layout/DashboardSideBar";
+import DashboardSidebar from "@/layout/DashboardSideBar";
+
 import { getServerSession } from "next-auth";
 import React from "react";
 import { authOption } from "../api/auth/[...nextauth]/route";
