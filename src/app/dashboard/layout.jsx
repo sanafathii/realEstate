@@ -1,4 +1,4 @@
-import DashboardSidebar from "@/layout/DashboardSideBar";
+import DashboardSidebar from "@/layout/DashboardSidebar";
 
 import { getServerSession } from "next-auth";
 import React from "react";

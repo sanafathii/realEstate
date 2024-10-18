@@ -11,8 +11,7 @@
       "@/module/*": ["src/components/module/*"],
       "@/template/*": ["src/components/template/*"],
       "@/models/*": ["src/models/*"],
-      "@/providers/*": ["src/providers/*"],
-      "@/*": ["./*"]
+      "@/providers/*": ["src/providers/*"]
     }
   }
 }
