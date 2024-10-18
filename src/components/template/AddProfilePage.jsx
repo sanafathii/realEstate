@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AddProfilePage.module.css";
 import TextInput from "../module/TextInput";
 import RadioList from "../module/RadioList";
@@ -7,8 +7,9 @@ import TextList from "../module/TextList";
 import CusomeDatePicker from "../module/CusomeDatePicker";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "../module/Loader";
+import { useRouter } from "next/navigation";
 
-function AddProfilePage() {
+function AddProfilePage({ data }) {
   const [profileDate, setProfileDate] = useState({
     title: "",
     description: "",
@@ -22,6 +23,24 @@ function AddProfilePage() {
     amenities: [],
   });
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const editHandler = async () => {
+    setLoading(true);
+    const res = await fetch("/api/profile", {
+      method: "PATCH",
+      body: JSON.stringify(profileDate),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    setLoading(false);
+    if (data.error) {
+      toast.error(data.error);
+    } else {
+      toast.success(data.message);
+      router.refresh();
+    }
+  };
   const submitHandler = async () => {
     setLoading(true);
     const res = await fetch("/api/profile", {
@@ -34,24 +53,19 @@ function AddProfilePage() {
     if (data.error) {
       toast.error(data.error);
     } else {
-      setProfileDate({
-        title: "",
-        description: "",
-        location: "",
-        phoneNumber: "",
-        price: "",
-        realState: "",
-        constractionDate: new Date(),
-        gategorie: "",
-        rules: [],
-        amenities: [],
-      });
       toast.success(data.message);
+      router.refresh();
     }
   };
+
+  useEffect(() => {
+    if (data) {
+      setProfileDate(data);
+    }
+  }, []);
   return (
     <div className={styles.container}>
-      <h3>ثبت آگهی</h3>
+      <h3>{data ? "ویرایش آگهی" : "ثبت آگهی"}</h3>
       <TextInput
         title="عنوان آگهی"
         name="title"
@@ -109,6 +123,10 @@ function AddProfilePage() {
       <Toaster />
       {loading ? (
         <Loader />
+      ) : data ? (
+        <button className={styles.submit} onClick={editHandler}>
+          ویرایش آگهی
+        </button>
       ) : (
         <button className={styles.submit} onClick={submitHandler}>
           ثبت آگهی

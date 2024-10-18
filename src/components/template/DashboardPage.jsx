@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./DashboardPage.module.css";
 
 function DashboardPage({ createdAt }) {

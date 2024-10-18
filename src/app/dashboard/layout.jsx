@@ -6,7 +6,10 @@ import { redirect } from "next/navigation";
 
 async function DashboardLayout({ children }) {
   const session = await getServerSession(authOption);
-  if (!session) redirect("/signin");
+  if (!session) {
+    redirect("/signin");
+    return null;
+  }
   return <DashboardSidebar>{children}</DashboardSidebar>;
 }
 
