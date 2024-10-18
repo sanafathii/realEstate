@@ -5,6 +5,7 @@ import styles from "./AddProfilePage.module.css";
 import TextInput from "../module/TextInput";
 import RadioList from "../module/RadioList";
 import TextList from "../module/TextList";
+import CusomeDatePicker from "../module/CusomeDatePicker";
 
 function AddProfilePage() {
   const [profileDate, setProfileDate] = useState({
@@ -76,7 +77,10 @@ function AddProfilePage() {
         profileDate={profileDate}
         setProfileDate={setProfileDate}
       />
-
+      <CusomeDatePicker
+        profileDate={profileDate}
+        setProfileDate={setProfileDate}
+      />
       <button className={styles.submit} onClick={submitHandler}>
         ثبت آگهی
       </button>
