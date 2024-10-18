@@ -1,7 +1,7 @@
-import Layout from "@/components/layout/Layout";
 import "./globals.css";
 import { yekan } from "@/utils/font";
 import NextAuthProvider from "@/providers/NextAuthProvider";
+import Layout from "@/components/layout/Layout";
 
 export const metadata = {
   title: "Create Next App",

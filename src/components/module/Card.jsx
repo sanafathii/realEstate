@@ -9,7 +9,7 @@ import { BiLeftArrowAlt } from "react-icons/bi";
 import { sp } from "@/utils/replaceNumber";
 import Link from "next/link";
 
-function Card({ data: { title, gategorie, location, price } }) {
+function Card({ data: { _id, title, gategorie, location, price } }) {
   const icons = {
     villa: <RiHome3Line />,
     store: <BiStore />,
@@ -25,7 +25,7 @@ function Card({ data: { title, gategorie, location, price } }) {
         {location}
       </p>
       <span>{sp(price)} تومان</span>
-      <Link href="/">
+      <Link href={`/buy-residential/${_id}`}>
         مشاهده آگهی
         <BiLeftArrowAlt />
       </Link>
